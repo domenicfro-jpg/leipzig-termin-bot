@@ -1,7 +1,7 @@
-import requests
+import os
 
-BOT_TOKEN = "8573399591:AAFaBAfFJWbx8wPlWQznYCprlOtqf6LDYmc"
-CHAT_ID = "13233274"
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
 
 URL = "https://terminvereinbarung.leipzig.de/m/leipzig-kfz/extern/calendar/?uid=c97bb32a-92b8-41ba-b5c2-f91d0e90019f&wsid=5291bc47-a574-4ab9-b93f-5af9f25d109e&lang=de&set_lang_ui=de&rev=06Ldz&step_goto=0#top"
 
