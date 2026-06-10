@@ -15,28 +15,28 @@ def notify(msg):
         params={"chat_id": CHAT_ID, "text": msg}
     )
 
-
 def check():
     r = requests.get(URL, timeout=20)
     html = r.text.lower()
 
-    # simple heuristics (API fallback light)
-    blocked_signals = [
-        "keine termine",
-        "nicht verfügbar",
-        "fully booked"
-    ]
-
-    if any(x in html for x in blocked_signals):
+    # echte negative Signale
+    if "keine termine verfügbar" in html:
         print("kein Termin")
         return
 
-    # wenn Kalender oder Inhalte geladen
-    if "calendar" in html or "datum" in html:
-        notify("🔥 Termin möglich: Leipzig Umschreibung verfügbar!")
+    # bessere positive Signale
+    positive_signals = [
+        "termin auswählen",
+        "verfügbar",
+        "freie termine",
+        "select appointment"
+    ]
+
+    if any(x in html for x in positive_signals):
+        notify("🔥 Möglicher Termin sichtbar – bitte sofort prüfen!")
         print("TERMIN SIGNAL")
     else:
-        print("unklar")
+        print("kein eindeutiger Termin")
 
 
 if __name__ == "__main__":
